@@ -1,9 +1,7 @@
 using TodoApi.Models;
 using Microsoft.AspNetCore.Mvc;
 namespace TodoApi.Controllers;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 [ApiController]

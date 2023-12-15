@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace TodoApi.Models;
 
-public class User: IdentityUser {
+public class User
+{
     public int Id { get; set; }
     public required string Name { get; set; }
     public int Email { get; set; }
