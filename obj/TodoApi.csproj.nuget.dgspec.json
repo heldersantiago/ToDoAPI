@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/hps/Documents/projects/sample/TodoApi/TodoApi.csproj": {}
+    "/home/hps/Documents/projects/ToDo/backend/TodoApi/TodoApi.csproj": {}
   },
   "projects": {
-    "/home/hps/Documents/projects/sample/TodoApi/TodoApi.csproj": {
+    "/home/hps/Documents/projects/ToDo/backend/TodoApi/TodoApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/hps/Documents/projects/sample/TodoApi/TodoApi.csproj",
+        "projectUniqueName": "/home/hps/Documents/projects/ToDo/backend/TodoApi/TodoApi.csproj",
         "projectName": "TodoApi",
-        "projectPath": "/home/hps/Documents/projects/sample/TodoApi/TodoApi.csproj",
+        "projectPath": "/home/hps/Documents/projects/ToDo/backend/TodoApi/TodoApi.csproj",
         "packagesPath": "/home/hps/.nuget/packages/",
-        "outputPath": "/home/hps/Documents/projects/sample/TodoApi/obj/",
+        "outputPath": "/home/hps/Documents/projects/ToDo/backend/TodoApi/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/hps/.nuget/NuGet/NuGet.Config"
@@ -41,6 +41,10 @@
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.0, )"
+            },
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.2.0, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
@@ -96,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/228/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

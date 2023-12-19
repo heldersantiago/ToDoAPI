@@ -1,11 +1,14 @@
 using TodoApi.Models;
 using Microsoft.AspNetCore.Mvc;
-namespace TodoApi.Controllers;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
 
+namespace TodoApi.Controllers;
+
+// [Autorize]
+[EnableCors("CorsPolicy")]
 [ApiController]
-// [Authorize]
 [Route("api/[controller]")]
 public class TodoController : ControllerBase
 {
@@ -24,7 +27,17 @@ public class TodoController : ControllerBase
     {
         var items = await _TodoContext.TodoItems.ToListAsync();
         if (items == null) return BadRequest();
-        return Ok(items);
+
+        var response = new ObjectResult(items)
+        {
+            StatusCode = 200,
+            Value = new
+            {
+                Message = "lista das tarefas",
+                Data = items
+            },
+        };
+        return response;
     }
 
     [HttpPost]
@@ -38,16 +51,16 @@ public class TodoController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<TodoItem>> ShowAsync(int id)
     {
-        if (id <= 0) return BadRequest($"{id} provided invalid");
+        if (id <= 0) return BadRequest($"argumento invalido: {id}");
         var item = await _TodoContext.FindAsync<TodoItem>(id);
-        if (item == null) return NotFound($"User {id} not found");
+        if (item == null) return NotFound($"tarefa com id: {id} nao encontrado");
 
         var response = new ObjectResult(item)
         {
             StatusCode = 200,
             Value = new
             {
-                Message = "Requisição feita com sucesso",
+                Message = "tarefa achado com sucesso",
                 Data = item
             },
         };
@@ -59,7 +72,7 @@ public class TodoController : ControllerBase
     {
         if (id <= 0 || _item == null)
         {
-            return BadRequest();
+            return BadRequest($"argumento invalido: {id}");
         }
 
         var existingItem = await _TodoContext.FindAsync<TodoItem>(id);
@@ -71,11 +84,11 @@ public class TodoController : ControllerBase
 
         if (id != existingItem.Id)
         {
-            return BadRequest("Mismatched IDs");
+            return BadRequest($"tarefa com id: {id} nao encontrado");
         }
 
         // Update properties of existingItem with values from _item
-        existingItem.Task = _item.Task;
+        existingItem.Name = _item.Name;
 
         try
         {
@@ -88,20 +101,38 @@ public class TodoController : ControllerBase
             return Conflict("Concurrency conflict");
         }
 
-        return Ok(existingItem);
+        var response = new ObjectResult(existingItem)
+        {
+            StatusCode = 200,
+            Value = new
+            {
+                Message = "tarefa actualizado com sucesso",
+                Data = existingItem
+            },
+        };
+        return response;
     }
-
 
     [HttpDelete("{id}")]
     public async Task<ActionResult<TodoItem>> DeleteAsync(int id)
     {
-        if (id <= 0) return BadRequest();
+        if (id <= 0) return BadRequest($"argumento invalido: {id}");
         var item = await _TodoContext.FindAsync<TodoItem>(id);
         if (item == null) return NotFound();
 
         _TodoContext.Remove(item);
         await _TodoContext.SaveChangesAsync();
-        return Ok("User deleted with success");
+
+        var response = new ObjectResult(item)
+        {
+            StatusCode = 200,
+            Value = new
+            {
+                Message = "tarefa deletado com sucesso",
+                Data = item
+            },
+        };
+        return response;
     }
 
 }

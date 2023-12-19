@@ -8,7 +8,6 @@ using TodoApi.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Configuration
 builder.Configuration.AddJsonFile("appsettings.json");
 var configuration = builder.Configuration;
@@ -45,6 +44,16 @@ builder.Services.AddAuthentication(auth =>
     });
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder
+            .WithOrigins("http://localhost:46395")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IUserService, UserService>();
@@ -62,9 +71,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
