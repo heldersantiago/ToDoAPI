@@ -22,6 +22,9 @@ public class TodoController : ControllerBase
         this._TodoContext = todoContext;
     }
 
+    /// <summary>
+    /// List all todos
+    /// </summary>
     [HttpGet]
     public async Task<ActionResult<TodoItem>> GetAllAsync()
     {

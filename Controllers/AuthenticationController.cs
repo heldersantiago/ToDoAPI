@@ -17,6 +17,10 @@ public class AuthenticationController : ControllerBase
         _configuration = configuration;
     }
 
+    /// <summary>
+    /// Register a new user
+    /// </summary>
+
     [HttpPost("Register")]
     public async Task<ActionResult> RegisterAsync([FromBody] RegisterModel model)
     {
