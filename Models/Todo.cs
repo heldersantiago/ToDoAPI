@@ -5,7 +5,8 @@ namespace TodoApi.Models;
 public class TodoItem
 {
     public int Id { get; set; }
-    public required string Task { get; set; }
+    public required string Name { get; set; }
+    public required string Description { get; set; }
     public bool Complete { get; set; }
-    public required  int Owner { get; set; }
+    public int OwnerId { get; set; }
 }
